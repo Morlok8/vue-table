@@ -24,9 +24,7 @@
     // Получение данных по запросу
     const fetchData = async () => {
         try {
-            console.log(search.value);
             const response = await fetch(search.value);
-
             photos.value = await response.json();
         } catch (err) {
             error.value = err.message;
@@ -34,7 +32,6 @@
         } 
 
         isLoading.value = false;
-        console.log(photos.value);
     };
 
     //Загрузка дополнительных строк таблицы
