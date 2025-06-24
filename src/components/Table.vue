@@ -11,14 +11,17 @@
     const isFetchingMore = ref(false);
 
     const direction = ref("DESC");
-
+    /*
+    Для того, чтобы результаты запроса сохранялись даже после загрузки, мы сохраняем запрос в store 
+    /store/search.js 
+    */ 
     const search = useSearchStore();
 
     // Вычисляемое свойство для отображаемых фото
     const visiblePhotos = computed(() => {
         return photos.value.slice(0, visibleCount.value); //Возвращает количество фото, равное переменной visibleCount 
     });
-
+    // Получение данных по запросу
     const fetchData = async () => {
         try {
             console.log(search.value);
@@ -56,11 +59,11 @@
             isFetchingMore.value = false;
         }, 500);
     };
-
+    //При загрузке страницы получаем данные
     onMounted(() => {
         fetchData();
     });
-
+    //Отслеживаем изменения переменной запроса
     watch (() => search.value, () => {
         fetchData();
     });
@@ -135,9 +138,9 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="isLoading" class="loading">Loading data...</div>
+    <div v-if="isLoading" class="loading">Загрузка данных...</div>
     <div v-if="error" class="error">{{ error }}</div>
-    <div v-if="!isLoading && photos.length === 0" class="no-data">No data available</div>
+    <div v-if="!isLoading && photos.length === 0" class="no-data">Данные не обнаружены</div>
   </div>
 </template>
 

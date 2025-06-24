@@ -5,21 +5,24 @@ import { ref } from 'vue'
 
 export const useSearchStore = defineStore('search', {
     state: () => ({
-        value: localStorage.getItem("search_query") !== null ? ref(localStorage.getItem("search_query")) : ref("https://jsonplaceholder.typicode.com/photos")
+        value: localStorage.getItem("search_query") !== null ? ref(localStorage.getItem("search_query")) : ref("https://jsonplaceholder.typicode.com/photos") //если LocalStorage пуст, то задается значение по умолчанию
     }),
     actions: {
         getSearchArray(search_string){
+            let search_result;
+            //Дополнительная проверка search string, если поле ввода пустое, то выводится стандартная выборка
             if(search_string === "undefined"){
-                localStorage.setItem("search_query", "https://jsonplaceholder.typicode.com/photos")
-                return true;
+                search_result = "https://jsonplaceholder.typicode.com/photos";
             }
-            let search_array = search_string.split(" ");
+            else{
+                let search_array = search_string.split(" ");
 
-            let search_result = "https://jsonplaceholder.typicode.com/photos?";
+                search_result = "https://jsonplaceholder.typicode.com/photos?";
 
-            search_array.forEach((value) => {
-                search_result = search_result + "&albumId=" + value;
-            });
+                search_array.forEach((value) => {
+                    search_result = search_result + "&albumId=" + value;
+                });
+            }
             
             this.value = search_result;
 

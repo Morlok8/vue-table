@@ -13,10 +13,19 @@
           search.getSearchArray(search_input.value);  
         else{
             if(typeof search_input.value === "undefined"){
+                console.log('im there');
                 search.getSearchArray("undefined")
             }
-            else
-                alert("При поиске можно указывать только целые числа, раздленные через пробел")
+            else{
+                if (search_input.value.trim() === ''){
+                    console.log('im here');
+                    search.getSearchArray("undefined")
+                } 
+                    
+                else
+                    alert("При поиске можно указывать только целые числа, раздленные через пробел")
+            }
+                
         }
           
     }
